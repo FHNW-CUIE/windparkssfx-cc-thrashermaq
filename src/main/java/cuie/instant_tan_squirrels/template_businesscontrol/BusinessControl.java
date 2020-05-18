@@ -1,4 +1,4 @@
-package cuie.project.template_businesscontrol;
+package cuie.instant_tan_squirrels.template_businesscontrol;
 
 import java.util.regex.Pattern;
 

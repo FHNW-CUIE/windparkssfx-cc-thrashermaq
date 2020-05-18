@@ -2,7 +2,7 @@
 
 === Bearbeitet von
 
-* _Vorname Nachname_
+* _Alexandra Marti & Nils Müller_
 
 === Integriert in die OOP2-Projekte von
 
