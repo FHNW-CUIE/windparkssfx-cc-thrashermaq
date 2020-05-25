@@ -35,7 +35,7 @@ class DemoPane extends BorderPane {
 
         businessControl = new BusinessControl();
 
-        ageSlider = new Slider(0, 130, 0);
+        ageSlider = new Slider(0, 50000, 0);
 
         readOnlyBox = new CheckBox();
         readOnlyBox.setSelected(false);

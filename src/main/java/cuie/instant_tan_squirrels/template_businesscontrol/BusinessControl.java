@@ -2,12 +2,7 @@ package cuie.instant_tan_squirrels.template_businesscontrol;
 
 import java.util.regex.Pattern;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 import javafx.css.PseudoClass;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
@@ -18,15 +13,12 @@ public class BusinessControl extends Control {
     private static final PseudoClass MANDATORY_CLASS = PseudoClass.getPseudoClass("mandatory");
     private static final PseudoClass INVALID_CLASS   = PseudoClass.getPseudoClass("invalid");
 
+    static final String FORMATTED_DOUBLE_PATTERN = "%.2f";
 
-    //todo: durch die eigenen regulaeren Ausdruecke ersetzen
-    static final String FORMATTED_INTEGER_PATTERN = "%,d";
+    private static final String DOUBLE_REGEX    = "[\\d']{1,14}(\\.\\d{1,2})?";
+    private static final Pattern DOUBLE_PATTERN = Pattern.compile(DOUBLE_REGEX);
 
-    private static final String INTEGER_REGEX    = "[+-]?[\\d']{1,14}";
-    private static final Pattern INTEGER_PATTERN = Pattern.compile(INTEGER_REGEX);
-
-    //todo: Integer bei Bedarf ersetzen
-    private final IntegerProperty value = new SimpleIntegerProperty();
+    private final DoubleProperty value = new SimpleDoubleProperty();
     private final StringProperty userFacingText = new SimpleStringProperty();
 
     private final BooleanProperty mandatory = new SimpleBooleanProperty() {
@@ -61,7 +53,7 @@ public class BusinessControl extends Control {
     }
 
     public void reset() {
-        setUserFacingText(convertToString(getValue()));
+        setUserFacingText(String.valueOf(getValue()));
     }
 
     public void increase() {
@@ -75,23 +67,35 @@ public class BusinessControl extends Control {
     private void initializeSelf() {
          getStyleClass().add("business-control");
 
-         setUserFacingText(convertToString(getValue()));
+         setUserFacingText(String.valueOf(getValue()));
     }
 
     //todo: durch geeignete Konvertierungslogik ersetzen
     private void addValueChangeListener() {
+
+        String pattern = DOUBLE_REGEX+"k";
+
         userFacingText.addListener((observable, oldValue, userInput) -> {
-            if (isMandatory() && (userInput == null || userInput.isEmpty())) {
+
+            if (userInput.matches(pattern)){
+                double thousands = Double.parseDouble(userInput.substring(0, userInput.length()-1));
+                setInvalid(false);
+                setValue(thousands*1000);
+                setUserFacingText(String.valueOf(thousands*1000));
+            }
+
+            else if (isMandatory() && (userInput == null || userInput.isEmpty())) {
                 setInvalid(true);
                 setErrorMessage("Mandatory Field");
                 return;
             }
 
-            if (isInteger(userInput)) {
+            else if (isDouble(userInput)) {
                 setInvalid(false);
                 setErrorMessage(null);
-                setValue(convertToInt(userInput));
-            } else {
+                setValue(convertToDouble(userInput));
+            }
+             else {
                 setInvalid(true);
                 setErrorMessage("Not an Integer");
             }
@@ -103,9 +107,7 @@ public class BusinessControl extends Control {
             setUserFacingText(convertToString(newValue.intValue()));
         });
     }
-
-    //todo: Forgiving Format implementieren
-
+    
     public void loadFonts(String... font){
         for(String f : font){
             Font.loadFont(getClass().getResourceAsStream(f), 0);
@@ -119,29 +121,29 @@ public class BusinessControl extends Control {
         }
     }
 
-    private boolean isInteger(String userInput) {
-        return INTEGER_PATTERN.matcher(userInput).matches();
+    private boolean isDouble(String userInput) {
+        return DOUBLE_PATTERN.matcher(userInput).matches();
     }
 
-    private int convertToInt(String userInput) {
-        return Integer.parseInt(userInput);
+    private double convertToDouble(String userInput) {
+        return Double.parseDouble(userInput);
     }
 
-    private String convertToString(int newValue) {
-        return String.format(FORMATTED_INTEGER_PATTERN, newValue);
+    private String convertToString(double newValue) {
+        return String.format(FORMATTED_DOUBLE_PATTERN, newValue);
     }
 
 
     // alle  Getter und Setter
-    public int getValue() {
+    public double getValue() {
         return value.get();
     }
 
-    public IntegerProperty valueProperty() {
+    public DoubleProperty valueProperty() {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value.set(value);
     }
 

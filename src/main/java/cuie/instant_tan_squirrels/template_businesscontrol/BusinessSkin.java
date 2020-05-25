@@ -190,7 +190,7 @@ class BusinessSkin extends SkinBase<BusinessControl> {
     }
 
     private void setupBindings() {
-        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(BusinessControl.FORMATTED_INTEGER_PATTERN));
+        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(BusinessControl.FORMATTED_DOUBLE_PATTERN));
         editableNode.textProperty().bindBidirectional(getSkinnable().userFacingTextProperty());
 
         editableNode.promptTextProperty().bind(getSkinnable().labelProperty());
