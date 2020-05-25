@@ -22,7 +22,7 @@ import javafx.stage.Popup;
 import javafx.util.Duration;
 
 //todo: durch eigenen Skin ersetzen
-class BusinessSkin extends SkinBase<BusinessControl> {
+class PowerSkin extends SkinBase<PowerControl> {
     private static final int IMG_SIZE   = 12;
     private static final int IMG_OFFSET = 4;
 
@@ -38,7 +38,7 @@ class BusinessSkin extends SkinBase<BusinessControl> {
 
         State(final String text, final String file) {
             this.text = text;
-            String url = BusinessSkin.class.getResource("/icons/" + file).toExternalForm();
+            String url = PowerSkin.class.getResource("/icons/" + file).toExternalForm();
             this.imageView = new ImageView(new Image(url,
                                                      IMG_SIZE, IMG_SIZE,
                                                      true, false));
@@ -59,7 +59,7 @@ class BusinessSkin extends SkinBase<BusinessControl> {
     private Animation      invalidInputAnimation;
     private FadeTransition fadeOutValidIconAnimation;
 
-    BusinessSkin(BusinessControl control) {
+    PowerSkin(PowerControl control) {
         super(control);
         initializeSelf();
         initializeParts();
@@ -190,7 +190,7 @@ class BusinessSkin extends SkinBase<BusinessControl> {
     }
 
     private void setupBindings() {
-        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(BusinessControl.FORMATTED_DOUBLE_PATTERN));
+        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(PowerControl.FORMATTED_DOUBLE_PATTERN));
         editableNode.textProperty().bindBidirectional(getSkinnable().userFacingTextProperty());
 
         editableNode.promptTextProperty().bind(getSkinnable().labelProperty());

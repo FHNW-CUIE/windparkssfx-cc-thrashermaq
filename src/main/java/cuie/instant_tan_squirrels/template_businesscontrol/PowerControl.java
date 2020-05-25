@@ -8,8 +8,7 @@ import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 import javafx.scene.text.Font;
 
-//todo: umbenennen
-public class BusinessControl extends Control {
+public class PowerControl extends Control {
     private static final PseudoClass MANDATORY_CLASS = PseudoClass.getPseudoClass("mandatory");
     private static final PseudoClass INVALID_CLASS   = PseudoClass.getPseudoClass("invalid");
 
@@ -42,14 +41,14 @@ public class BusinessControl extends Control {
     private final StringProperty  errorMessage = new SimpleStringProperty();
 
 
-    public BusinessControl() {
+    public PowerControl() {
         initializeSelf();
         addValueChangeListener();
     }
 
     @Override
     protected Skin<?> createDefaultSkin() {
-        return new BusinessSkin(this);
+        return new PowerSkin(this);
     }
 
     public void reset() {
@@ -70,11 +69,9 @@ public class BusinessControl extends Control {
          setUserFacingText(String.valueOf(getValue()));
     }
 
-    //todo: durch geeignete Konvertierungslogik ersetzen
     private void addValueChangeListener() {
 
         String pattern = DOUBLE_REGEX+"k";
-
         userFacingText.addListener((observable, oldValue, userInput) -> {
 
             if (userInput.matches(pattern)){
@@ -97,17 +94,17 @@ public class BusinessControl extends Control {
             }
              else {
                 setInvalid(true);
-                setErrorMessage("Not an Integer");
+                setErrorMessage("Not a Double");
             }
         });
 
         valueProperty().addListener((observable, oldValue, newValue) -> {
             setInvalid(false);
             setErrorMessage(null);
-            setUserFacingText(convertToString(newValue.intValue()));
+            setUserFacingText(convertToString(newValue.doubleValue()));
         });
     }
-    
+
     public void loadFonts(String... font){
         for(String f : font){
             Font.loadFont(getClass().getResourceAsStream(f), 0);

@@ -7,12 +7,12 @@ import javafx.scene.layout.VBox;
 class DropDownChooser extends VBox {
     private static final String STYLE_CSS = "dropDownChooser.css";
 
-    private final BusinessControl businessControl;
+    private final PowerControl powerControl;
 
     private Label tobeReplacedLabel;
 
-    DropDownChooser(BusinessControl businessControl) {
-        this.businessControl = businessControl;
+    DropDownChooser(PowerControl powerControl) {
+        this.powerControl = powerControl;
         initializeSelf();
         initializeParts();
         layoutParts();

@@ -8,10 +8,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-import cuie.instant_tan_squirrels.template_businesscontrol.BusinessControl;
+import cuie.instant_tan_squirrels.template_businesscontrol.PowerControl;
 
 class DemoPane extends BorderPane {
-    private BusinessControl businessControl;
+    private PowerControl powerControl;
 
     private Slider ageSlider;
 
@@ -33,7 +33,7 @@ class DemoPane extends BorderPane {
     private void initializeControls() {
         setPadding(new Insets(10));
 
-        businessControl = new BusinessControl();
+        powerControl = new PowerControl();
 
         ageSlider = new Slider(0, 50000, 0);
 
@@ -47,7 +47,7 @@ class DemoPane extends BorderPane {
     }
 
     private void layoutControls() {
-        setCenter(businessControl);
+        setCenter(powerControl);
         VBox box = new VBox(10,
                             new Label("Business Control Properties"),
                             new Label("Age")      , ageSlider,
@@ -68,10 +68,10 @@ class DemoPane extends BorderPane {
         readOnlyBox.selectedProperty() .bindBidirectional(model.age_readOnlyProperty());
         mandatoryBox.selectedProperty().bindBidirectional(model.age_mandatoryProperty());
 
-        businessControl.valueProperty()    .bindBidirectional(model.ageProperty());
-        businessControl.labelProperty()    .bind(model.age_LabelProperty());
-        businessControl.readOnlyProperty() .bind(model.age_readOnlyProperty());
-        businessControl.mandatoryProperty().bind(model.age_mandatoryProperty());
+        powerControl.valueProperty()    .bindBidirectional(model.ageProperty());
+        powerControl.labelProperty()    .bind(model.age_LabelProperty());
+        powerControl.readOnlyProperty() .bind(model.age_readOnlyProperty());
+        powerControl.mandatoryProperty().bind(model.age_mandatoryProperty());
     }
 
 }
