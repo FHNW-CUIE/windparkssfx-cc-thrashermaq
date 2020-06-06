@@ -79,6 +79,7 @@ class PowerSkin extends SkinBase<PowerControl> {
     private void initializeParts() {
         editableNode = new TextField();
         editableNode.getStyleClass().add("editable-node");
+        editableNode.setPromptText("Leistung");
 
         readOnlyNode = new Label();
         readOnlyNode.getStyleClass().add("read-only-node");
@@ -197,8 +198,6 @@ class PowerSkin extends SkinBase<PowerControl> {
     private void setupBindings() {
         readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(FORMATTED_DOUBLE_PATTERN));
         editableNode.textProperty().bindBidirectional(getSkinnable().userFacingTextProperty());
-
-        editableNode.promptTextProperty().bind(getSkinnable().labelProperty());
 
         editableNode.visibleProperty().bind(getSkinnable().readOnlyProperty().not());
         chooserButton.visibleProperty().bind(getSkinnable().readOnlyProperty().not());
