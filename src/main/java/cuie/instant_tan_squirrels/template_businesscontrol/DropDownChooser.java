@@ -57,7 +57,6 @@ class DropDownChooser extends VBox {
     private KeyFrame getKeyFrame() {
         double millis = 100000 / powerControl.getValue();
         if (millis > 100) millis = 100;
-        System.out.println(millis);
         return new KeyFrame(Duration.millis(millis), ev -> {
             draw();
         });

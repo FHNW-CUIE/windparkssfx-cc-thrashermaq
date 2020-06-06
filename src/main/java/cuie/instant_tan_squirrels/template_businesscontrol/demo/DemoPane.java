@@ -69,7 +69,6 @@ class DemoPane extends BorderPane {
         mandatoryBox.selectedProperty().bindBidirectional(model.age_mandatoryProperty());
 
         powerControl.valueProperty()    .bindBidirectional(model.ageProperty());
-        powerControl.labelProperty()    .bind(model.age_LabelProperty());
         powerControl.readOnlyProperty() .bind(model.age_readOnlyProperty());
         powerControl.mandatoryProperty().bind(model.age_mandatoryProperty());
     }
