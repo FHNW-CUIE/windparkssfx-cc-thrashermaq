@@ -33,9 +33,7 @@ public class PowerControl extends Control {
             pseudoClassStateChanged(INVALID_CLASS, get());
         }
     };
-
-    //todo: ergaenzen um convertible
-
+    
     private final BooleanProperty readOnly     = new SimpleBooleanProperty();
     private final StringProperty  label        = new SimpleStringProperty();
     private final StringProperty  errorMessage = new SimpleStringProperty();

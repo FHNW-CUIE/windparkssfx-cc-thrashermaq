@@ -10,3 +10,16 @@
     -fx-spacing:       10;
     -fx-padding:       10;
 }
+
+.slider {
+    -fx-major-tick-unit: 1000;
+    -fx-show-tick-labels: true;
+    -fx-snap-to-ticks: true;
+    -fx-control-inner-background: #4b41ff;
+}
+
+.slider .thumb {
+    -fx-background-image :url("/icons/icon-lightning.png");
+    -fx-padding: 17;
+    -fx-background-color: transparent;
+}

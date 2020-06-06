@@ -9,7 +9,7 @@
 }
 
 .business-control .editable-node {
-    -fx-font-family:      'Lato Regular';
+    -fx-font-family:      'Roboto Light';
     -fx-font-size:        14;
     -fx-text-fill:        derive(-base-color, -50%);
     -fx-prompt-text-fill: derive(-base-color, 40%);
@@ -21,7 +21,7 @@
 }
 
 .business-control:invalid .editable-node {
-    -fx-font-family: 'Lato Light';
+    -fx-font-family: 'Roboto Light';
     -fx-text-fill: red;
 }
 
@@ -66,20 +66,6 @@
     -fx-background-color:  derive(-base-color, 70%);
     -fx-background-radius: 1024;
     -fx-background-insets: 4;
-}
-
-.slider {
-    -fx-major-tick-unit: 1000;
-    fx-minor-tick-count: 10;
-    -fx-show-tick-labels: true;
-    -fx-snap-to-ticks: true;
-    -fx-control-inner-background: #4b41ff;
-}
-
-.slider .thumb {
-    -fx-background-image :url("/icons/icon-lightning.png");
-    -fx-padding: 17;
-    -fx-background-color: transparent;
 }
 
 

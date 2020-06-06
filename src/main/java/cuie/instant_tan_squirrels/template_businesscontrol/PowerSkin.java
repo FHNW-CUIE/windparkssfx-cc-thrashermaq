@@ -21,7 +21,6 @@ import javafx.scene.text.Font;
 import javafx.stage.Popup;
 import javafx.util.Duration;
 
-//todo: durch eigenen Skin ersetzen
 class PowerSkin extends SkinBase<PowerControl> {
     private static final int IMG_SIZE   = 12;
     private static final int IMG_OFFSET = 4;
@@ -73,7 +72,7 @@ class PowerSkin extends SkinBase<PowerControl> {
     }
 
     private void initializeSelf() {
-        getSkinnable().loadFonts("/fonts/Lato/Lato-Lig.ttf",  "/fonts/Lato/Lato-Reg.ttf", "/fonts/ds_digital/DS-DIGI.TTF", "/fonts/fontawesome-webfont.ttf");
+        getSkinnable().loadFonts("/fonts/fontawesome-webfont.ttf", "/fonts/Roboto/Roboto-Light.ttf");
         getSkinnable().addStylesheetFiles(STYLE_CSS);
     }
 

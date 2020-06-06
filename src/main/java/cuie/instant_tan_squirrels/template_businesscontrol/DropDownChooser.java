@@ -41,7 +41,7 @@ class DropDownChooser extends VBox {
     private void initializeParts() {
         canvas = new Canvas(400, 400);
         slider = new Slider(0, 50000, 0);
-        slider.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        slider.getStylesheets().add(getClass().getResource("dropdownchooser.css").toExternalForm());
         createAnimation();
     }
 
