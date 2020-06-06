@@ -29,6 +29,8 @@ class PowerSkin extends SkinBase<PowerControl> {
     private static final String ANGLE_DOWN = "\uf107";
     private static final String ANGLE_UP   = "\uf106";
 
+    private static final String FORMATTED_DOUBLE_PATTERN = "%.2f kW";
+
     private enum State {
         VALID("Valid",      "valid.png"),
         INVALID("Invalid",  "invalid.png");
@@ -187,10 +189,14 @@ class PowerSkin extends SkinBase<PowerControl> {
                 startFadeOutValidIconTransition();
             }
         });
+
+        getSkinnable().readOnlyProperty().addListener((observable, oldValue, newValue) -> {
+
+        });
     }
 
     private void setupBindings() {
-        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(PowerControl.FORMATTED_DOUBLE_PATTERN));
+        readOnlyNode.textProperty().bind(getSkinnable().valueProperty().asString(FORMATTED_DOUBLE_PATTERN));
         editableNode.textProperty().bindBidirectional(getSkinnable().userFacingTextProperty());
 
         editableNode.promptTextProperty().bind(getSkinnable().labelProperty());

@@ -64,7 +64,7 @@ class DropDownChooser extends VBox {
     }
 
     private void layoutParts() {
-        getChildren().add(canvas);
+        getChildren().addAll(canvas, slider);
     }
 
     private void setupBindings() {

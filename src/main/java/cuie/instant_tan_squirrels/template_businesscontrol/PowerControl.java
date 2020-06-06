@@ -56,11 +56,11 @@ public class PowerControl extends Control {
     }
 
     public void increase() {
-        setValue(getValue() + 1);
+        setValue(getValue() + 100);
     }
 
     public void decrease() {
-        setValue(getValue() - 1);
+        setValue(getValue() - 100);
     }
 
     private void initializeSelf() {
