@@ -18,6 +18,7 @@ class DropDownChooser extends VBox {
 
     private Canvas canvas;
     private double degrees;
+    private Timeline timeline;
 
     DropDownChooser(PowerControl powerControl) {
         this.powerControl = powerControl;
@@ -25,6 +26,7 @@ class DropDownChooser extends VBox {
         initializeParts();
         layoutParts();
         setupBindings();
+        setupValueChangedListeners();
     }
 
     private void initializeSelf() {
@@ -36,11 +38,24 @@ class DropDownChooser extends VBox {
 
     private void initializeParts() {
         canvas = new Canvas(400, 400);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), ev -> {
-            draw();
-        }));
+        createAnimation();
+    }
+
+    private void createAnimation() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeline = new Timeline(getKeyFrame());
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    private KeyFrame getKeyFrame() {
+        double millis = -0.002 * powerControl.getValue() + 101;
+        System.out.println(millis);
+        return new KeyFrame(Duration.millis(millis), ev -> {
+            draw();
+        });
     }
 
     private void layoutParts() {
@@ -50,10 +65,16 @@ class DropDownChooser extends VBox {
     private void setupBindings() {
     }
 
+    private void setupValueChangedListeners() {
+        powerControl.valueProperty().addListener((observable, oldValue, newValue) -> {
+            createAnimation();
+        });
+    }
+
     private void draw() {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
-        degrees += 1;
+        degrees += 0.5;
         if (degrees >= 360) degrees = 0;
 
         Affine rotate = new Affine();
