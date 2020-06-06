@@ -1,10 +1,12 @@
 package cuie.instant_tan_squirrels.template_businesscontrol;
 
+import cuie.instant_tan_squirrels.template_businesscontrol.demo.PresentationModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.transform.Affine;
@@ -18,9 +20,11 @@ class DropDownChooser extends VBox {
 
     private Canvas canvas;
     private double degrees;
+    private Slider slider;
 
     DropDownChooser(PowerControl powerControl) {
         this.powerControl = powerControl;
+
         initializeSelf();
         initializeParts();
         layoutParts();
@@ -41,13 +45,17 @@ class DropDownChooser extends VBox {
         }));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+        slider = new Slider(0, 50000, 0);
     }
 
     private void layoutParts() {
-        getChildren().add(canvas);
+
+        getChildren().addAll(canvas, slider);
     }
 
     private void setupBindings() {
+        slider.valueProperty().bindBidirectional(powerControl.valueProperty());
     }
 
     private void draw() {
