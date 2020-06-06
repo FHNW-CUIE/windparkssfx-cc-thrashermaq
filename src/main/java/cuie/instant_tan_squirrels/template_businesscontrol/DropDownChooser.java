@@ -40,6 +40,8 @@ class DropDownChooser extends VBox {
 
     private void initializeParts() {
         canvas = new Canvas(400, 400);
+        slider = new Slider(0, 50000, 0);
+        slider.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
         createAnimation();
     }
 
@@ -50,8 +52,6 @@ class DropDownChooser extends VBox {
         timeline = new Timeline(getKeyFrame());
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
-
-        slider = new Slider(0, 50000, 0);
     }
 
     private KeyFrame getKeyFrame() {
