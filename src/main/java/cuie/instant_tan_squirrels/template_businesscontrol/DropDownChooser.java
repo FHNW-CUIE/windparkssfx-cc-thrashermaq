@@ -1,6 +1,5 @@
 package cuie.instant_tan_squirrels.template_businesscontrol;
 
-import cuie.instant_tan_squirrels.template_businesscontrol.demo.PresentationModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -21,14 +20,15 @@ class DropDownChooser extends VBox {
     private Canvas canvas;
     private double degrees;
     private Slider slider;
+    private Timeline timeline;
 
     DropDownChooser(PowerControl powerControl) {
         this.powerControl = powerControl;
-
         initializeSelf();
         initializeParts();
         layoutParts();
         setupBindings();
+        setupValueChangedListeners();
     }
 
     private void initializeSelf() {
@@ -40,28 +40,47 @@ class DropDownChooser extends VBox {
 
     private void initializeParts() {
         canvas = new Canvas(400, 400);
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), ev -> {
-            draw();
-        }));
+        createAnimation();
+    }
+
+    private void createAnimation() {
+        if (timeline != null) {
+            timeline.stop();
+        }
+        timeline = new Timeline(getKeyFrame());
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
         slider = new Slider(0, 50000, 0);
     }
 
-    private void layoutParts() {
+    private KeyFrame getKeyFrame() {
+        double millis = 100000 / powerControl.getValue();
+        if (millis > 100) millis = 100;
+        System.out.println(millis);
+        return new KeyFrame(Duration.millis(millis), ev -> {
+            draw();
+        });
+    }
 
-        getChildren().addAll(canvas, slider);
+    private void layoutParts() {
+        getChildren().add(canvas);
     }
 
     private void setupBindings() {
         slider.valueProperty().bindBidirectional(powerControl.valueProperty());
     }
 
+    private void setupValueChangedListeners() {
+        powerControl.valueProperty().addListener((observable, oldValue, newValue) -> {
+            createAnimation();
+        });
+    }
+
     private void draw() {
         GraphicsContext graphicsContext = canvas.getGraphicsContext2D();
 
-        degrees += 1;
+        degrees += 0.5;
         if (degrees >= 360) degrees = 0;
 
         Affine rotate = new Affine();
