@@ -3,6 +3,7 @@ package cuie.instant_tan_squirrels.template_businesscontrol;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Slider;
@@ -39,9 +40,10 @@ class DropDownChooser extends VBox {
     }
 
     private void initializeParts() {
-        canvas = new Canvas(400, 400);
+        canvas = new Canvas(100, 100);
         slider = new Slider(0, 50000, 0);
         slider.getStylesheets().add(getClass().getResource("dropdownchooser.css").toExternalForm());
+        slider.setShowTickMarks(true);
         createAnimation();
     }
 
@@ -64,6 +66,7 @@ class DropDownChooser extends VBox {
 
     private void layoutParts() {
         getChildren().addAll(canvas, slider);
+        setAlignment(Pos.CENTER);
     }
 
     private void setupBindings() {
@@ -89,6 +92,7 @@ class DropDownChooser extends VBox {
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
         // use svg path
+        graphicsContext.scale(0.25, 0.25);
         graphicsContext.setFill(Color.web("#4D75FF"));
         graphicsContext.beginPath();
         graphicsContext.fillOval(175, 175, 50, 50);
